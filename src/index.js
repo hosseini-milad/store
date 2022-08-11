@@ -12,6 +12,7 @@ import './css/fonts.css'
 import reportWebVitals from './reportWebVitals';
 import Proxy from './pages/proxy';
 import Report from './pages/Report';
+import HavaleOutPage from './pages/havaleOutPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,8 +20,10 @@ root.render(
     <Layout>
      <Router>
        <Routes>
-         <Route path="/" element={<Home />}/>
+         <Route path="/" element={<Report />}/>
+         <Route path="/havale-in" element={<Home />}/>
          <Route path="/report" element={<Report />}/>
+         <Route path="/havale-out" element={<HavaleOutPage />}/>
         </Routes>
      </Router>
     </Layout>

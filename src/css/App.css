@@ -18,7 +18,17 @@ body, input , button{
   background-color: var(--main-table);
   transition: .3s all;
 }
-
+.exitBtn{
+  background-color: darkred;
+  font-size: 12px;
+  width:22px; height:22px;
+  border:none !important;
+  
+  border-radius: 13px;
+  color:#fff;
+  cursor: pointer;
+  transition: .3s all;
+}
 /*Header*/
 .mainHeader{
   
@@ -304,15 +314,38 @@ main{
 }
 .sideBar{
   width:20%;
-  margin-left: 2%;
+  margin-left: 35px;
+min-width: 250px;
 }
-
-.mainPart{
-  width:80%;
+.comboHolder{
+  position: relative;
   display: flex;
+}
+.clearList{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background-color: coral;
+  height: 20px;
+  width: 20px;
+  color: #fff;
+  text-align: center;
+  line-height: 1;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.mainPart{
+  margin:20px 2%;
+  display: flex;
+  align-items: flex-start;
 }
 .setHavale{
   width:40%;
+  min-width: 450px;
+}
+.sku{
+  margin:10px auto;
+  text-align: center;
 }
 
 .mainField{
@@ -359,6 +392,9 @@ main{
 }
 .havaleItem{
   width:80%;
+}
+.waitRow{
+  background-color: var(--main-color);
 }
 .havaleList button{
   border:1px solid darkgreen;
@@ -413,7 +449,17 @@ th{
   cursor: default;
   margin-bottom: 10px;
 }
-
+.wait{
+}
+.wait input{
+  direction: rtl;
+  width: 50px;
+}
+.wait span{
+  font-family: iran;
+  color: gray;
+  font-size:13px;
+}
 
 .accordion__button{
   width:auto !important;
@@ -428,4 +474,32 @@ th{
   font-size: 13px;
   font-family: iran;
   padding:2px;
+}
+
+@media (max-width: 700px){
+  main {
+    display: grid;
+  }
+  .sideBar {
+    width: 93%;
+  margin: auto;
+  }
+  .deskTop{
+    display: none;
+  }
+  .mainFooter {display: grid;}
+.mainPart {display: grid;width: 95%;}
+.setHavale {width: 100%;}
+.havaleListHolder{width: 98%;}
+.havaleList {overflow-x: auto;max-width: 100%;}
+.mainField input ,.mainLi{width: 42vw;}
+.submit {width: 90vw !important;}
+._3tcyg {width: 42vw !important;}
+.mainText {width: 90vw;}
+.havaleList table{
+  max-width: 90vw;
+  overflow-x: auto;
+  display: block;
+}
+.havaleLabel{display: none;}
 }

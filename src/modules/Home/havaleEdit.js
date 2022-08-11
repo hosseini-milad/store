@@ -4,27 +4,26 @@ import 'react-responsive-combo-box/dist/index.css'
 import SimpleFetch from '../../components/simpleFetch'
 import backUrl from '../../env';
 
-function HavaleIn(){
+function HavaleEdit(props){
     const setting = SimpleFetch(backUrl+'/setting');
-    const havaleList = SimpleFetch(backUrl+'/havalein')
-    var havaleIn='';
-    if(havaleList)
-        havaleIn = havaleList.havaleInList;
-    const [pipe,setPipe] = useState('visible')
-    const [havale,setHavale]=useState({})
+    const [pipe,setPipe] = useState('visible');
+    const havaleEdit = props.havaleOutItem;
     const SetHavale=(event)=>{
-    console.log(event)
+    
     const body={
-        "title":event[1].value+": "+event[2].childNodes[0].value+'×'+event[3].childNodes[0].value,
+        "id":havaleEdit._id,
         "category":event[0].childNodes[0].value,
-        "sku":event[1].value,
+        "sku":event[1].childNodes[0].value+"-"+
+                event[8].childNodes[0].value.split('m')[0]+"-"+
+                event[7].childNodes[0].value.split('درجه')[1],
+                
         "size1":event[2].childNodes[0].value,
         "size2":event[4].childNodes[0].value,
         "thick":event[5].childNodes[0].value,
         "quality":event[6].childNodes[0].value,
         "degree":event[7].childNodes[0].value,
-        "leng":event[8].value+'m',
-        "count":event[9].value,
+        "leng":event[8].childNodes[0].value+'m',
+        "count":event[9].childNodes[0].value,
         "from":event[10].childNodes[0].value,
         "status":"instore",
         "date":Date.now(),
@@ -36,12 +35,12 @@ function HavaleIn(){
         headers: { 'Content-Type': 'application/json'},
         body:  JSON.stringify(body)
       }
-   fetch(backUrl+"/set/havalein",postOptions)
+   fetch(backUrl+"/update/havale",postOptions)
     .then(res => res.json())
     .then(
     (result) => {
         console.log(result);
-        document.location.reload();
+         document.location.reload();
     },
     (error) => {
         console.log(error);
@@ -76,34 +75,30 @@ if(setting){
         fromData.push(setting.from[s].from);
 }
 
-    const searchSku=(e)=>{
-        for(var i=0;i<havaleIn.length;i++)
-            if(havaleIn[i].sku.split('-')[0] === e.target.value)
-            {    setHavale(havaleIn[i]);return;   }
-    }
+
     return(<>
         <div className="mainHeader">
-            <h1>حواله ورود</h1>
+            <h1>ویرایش حواله</h1>
         </div>
         <div className="mainText">
             <div className="mainField">
-                <ComboBox id={"category"} options={catData} defaultValue={havale.category} enableAutocomplete placeholder="دسته بندی"
+                <ComboBox id={"category"} options={catData} defaultValue={havaleEdit.category} enableAutocomplete placeholder="دسته بندی"
                 onSelect={(e)=>(setPipe(e==='لوله فولادی'?'hidden':'visible'))}/>
-                <input id="sku" type="text" placeholder="شناسه" onChange={searchSku}/>
-                <ComboBox id={"size1"} options={pipe==='hidden'?sizePipe:sizeData} defaultValue={havale.size1} enableAutocomplete placeholder="سایز"/>
+                <ComboBox id="sku" options={nullData} placeholder="شناسه" defaultValue={havaleEdit.sku.split('-')[0]}/>
+                <ComboBox id={"size1"} options={pipe==='hidden'?sizePipe:sizeData} defaultValue={havaleEdit.size1} enableAutocomplete placeholder="سایز"/>
                 <span style={{visibility:pipe}}> × </span>
-                <ComboBox style={{visibility:pipe}} id={"size2"} options={sizeData} defaultValue={havale.size2} enableAutocomplete placeholder="سایز"/>
-                <ComboBox id={"thickness"} options={thickData} defaultValue={havale.thick} enableAutocomplete placeholder="ضخامت"/>
-                <ComboBox id={"quality"} options={qualityData} defaultValue={havale.quality} enableAutocomplete placeholder="کیفیت"/>
-                <ComboBox id={"degree"} options={degreeData} defaultValue={havale.degree} enableAutocomplete placeholder="درجه"/>
-                <input id="leng" type="text" placeholder="طول"/>
-                <input id="count" type="text" placeholder="تعداد"/>
-                <ComboBox id={"from"} options={fromData} defaultIndex={0} enableAutocomplete placeholder="از"/>
-                <input className='submit' type="submit" value="ثبت حواله" 
+                <ComboBox style={{visibility:pipe}} id={"size2"} options={sizeData} defaultValue={havaleEdit.size2} enableAutocomplete placeholder="سایز"/>
+                <ComboBox id={"thickness"} options={thickData} defaultValue={havaleEdit.thick} enableAutocomplete placeholder="ضخامت"/>
+                <ComboBox id={"quality"} options={qualityData} defaultValue={havaleEdit.quality} enableAutocomplete placeholder="کیفیت"/>
+                <ComboBox id={"degree"} options={degreeData} defaultValue={havaleEdit.degree} enableAutocomplete placeholder="درجه"/>
+                <ComboBox id="leng" options={nullData} defaultValue={havaleEdit.leng} placeholder="طول"/>
+                <ComboBox id="count" options={nullData} placeholder="تعداد" defaultValue={havaleEdit.count}/>
+                <ComboBox id={"from"} options={fromData} defaultValue={havaleEdit.from} enableAutocomplete placeholder="از"/>
+                <input className='submit' type="submit" value="ویرایش حواله" 
                     onClick={(e)=>SetHavale(e.target.parentNode.children)}/>
             </div>
         </div>
         </>
     )
 }
-export default HavaleIn
+export default HavaleEdit

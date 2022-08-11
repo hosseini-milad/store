@@ -47,15 +47,15 @@ function HavaleInList (props){
                 <th>عملیات</th></tr>
             {havaleList&&havaleList.havaleInList.map((havale,i)=>(
             <tr key={i} id={havale._id} className='havaleItem'>
-                <td style={{maxWidth:"40px",overflow: "hidden"}}>{havale.sku}</td>
+                <td style={{maxWidth:"60px",overflow: "hidden"}}>{havale.sku.split('-')[0]}</td>
                 <td>{havale.category}</td>
                 <td>{havale.size1+(havale.size2?"×"+havale.size2:' اینچ ')+' | '+
                     havale.thick+' میل '+' | '+
-                    havale.length+' متر '}</td>
+                    havale.leng+' متر '}</td>
                 <td>{havale.quality+' | '+ havale.degree}</td>
                 <td>{havale.count}</td>
-                <td><button className='btn' onClick={()=>setOut(havale._id)}>ویرایش</button>
-                <button className='btn' onClick={()=>{props.setHavaleOutItem(havale);props.setHavaleIn(0)}}>خروجی</button></td>
+                <td><button className='btn' onClick={()=>{props.setHavaleOutItem(havale);props.setHavaleIn(4)}}>ویرایش</button>
+                <button className='btn' onClick={()=>{props.setHavaleOutItem(havale);props.setHavaleIn(2)}}>خروجی</button></td>
             </tr>
             ))}
             </tbody>

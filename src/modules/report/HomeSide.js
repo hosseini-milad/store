@@ -4,7 +4,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 import { useState } from 'react';
 import SimpleFetch from '../../components/simpleFetch';
-import backUrl from '../../env';
+import backUrl, { SetFilter } from '../../env';
 import {
     Accordion,
     AccordionItem,
@@ -16,16 +16,16 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css'
 
-function HomeSide(){
+
+function HomeSide(props){ 
     const setting = SimpleFetch(backUrl+'/setting')
-    const [filter,setFilter] = useState([])
     const [checked, setChecked] = useState(true);
-    const SetFilter=(filterId)=>{
-        setFilter([...filter, filterId]
-          )
-    }
-    console.log(filter)
-    return(<>
+    //SetFilter(filterId,props.filter,props.setFilter);
+
+    //console.log(props.filter)
+    return(<><div className='sku'>
+        <input type="text" placeholder='شناسه'/>
+        <input type="button" value="S" onClick={(e)=>{SetFilter('sku:'+e.target.previousSibling.value,props.filter,props.setFilter)}}/></div>
         {setting&&<Accordion className='sideAcc'>
             <AccordionItem>
                 <AccordionItemHeading>
@@ -37,7 +37,7 @@ function HomeSide(){
                     <FormGroup>
                         {setting.kinds.map(filter=>(
                             <FormControlLabel control={<Checkbox />} label={filter.kind} 
-                            onClick={()=>SetFilter(filter._id)} key={filter._id}/>
+                            onClick={()=>SetFilter('kind:'+filter.kind,props.filter,props.setFilter)} key={filter._id}/>
                         ))}
                     </FormGroup>
                 </AccordionItemPanel>
@@ -52,7 +52,7 @@ function HomeSide(){
                     <FormGroup>
                         {setting.sizes.map(filter=>(
                             <FormControlLabel control={<Checkbox />} label={filter.size} 
-                            onClick={()=>SetFilter(filter._id)} key={filter._id}/>
+                            onClick={()=>SetFilter('size:'+filter.size,props.filter,props.setFilter)} key={filter._id}/>
                         ))}
                     </FormGroup>
                 </AccordionItemPanel>
@@ -67,7 +67,7 @@ function HomeSide(){
                     <FormGroup>
                         {setting.thickness.map(filter=>(
                             <FormControlLabel control={<Checkbox />} label={filter.thick} 
-                            onClick={()=>SetFilter(filter._id)} key={filter._id}/>
+                            onClick={()=>SetFilter('thick:'+filter.thick,props.filter,props.setFilter)} key={filter._id}/>
                         ))}
                     </FormGroup>
                 </AccordionItemPanel>
@@ -81,11 +81,11 @@ function HomeSide(){
                 <AccordionItemPanel>
                     <FormGroup>
                         <FormControlLabel control={<Checkbox />} label={"زیر 12 متر"} 
-                            onClick={()=>SetFilter("12-")} />
+                            onClick={()=>SetFilter('leng:'+"range-12",props.filter,props.setFilter)} />
                         <FormControlLabel control={<Checkbox />} label={"12 متر"} 
-                            onClick={()=>SetFilter("12")} />
+                            onClick={()=>SetFilter('leng:'+"range=12",props.filter,props.setFilter)} />
                         <FormControlLabel control={<Checkbox />} label={"بالای 12 متر"} 
-                            onClick={()=>SetFilter("12+")} />
+                            onClick={()=>SetFilter('leng:'+"range+12",props.filter,props.setFilter)} />
                     </FormGroup>
                 </AccordionItemPanel>
             </AccordionItem>
@@ -99,7 +99,7 @@ function HomeSide(){
                     <FormGroup>
                         {setting.degree.map(filter=>(
                             <FormControlLabel control={<Checkbox />} label={filter.degree}
-                            onClick={()=>SetFilter(filter._id)} key={filter._id} />
+                            onClick={()=>SetFilter('degree:'+filter.degree,props.filter,props.setFilter)} key={filter._id} />
                         ))}
                     </FormGroup>
                 </AccordionItemPanel>
@@ -112,9 +112,9 @@ function HomeSide(){
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                     <FormGroup>
-                        {setting.quality.map(filter=>(
-                            <FormControlLabel control={<Checkbox defaultChecked />} label={filter.size} 
-                            onClick={()=>SetFilter(filter._id)} key={filter._id}/>
+                        {setting.quality.map(filter=>(// defaultChecked 
+                            <FormControlLabel control={<Checkbox/>} label={filter.size} 
+                            onClick={()=>SetFilter('size:'+filter.size,props.filter,props.setFilter)} key={filter._id}/>
                         ))}
                     </FormGroup>
                 </AccordionItemPanel>

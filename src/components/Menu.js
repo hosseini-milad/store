@@ -4,9 +4,9 @@ function MainMenu(){
         <div className="mainMenu">
             <ul className="mainMenuUl">
                 
-                <li className="mainMenuLi"><a href="/sales">فروش محصول</a></li>
-                <li className="mainMenuLi"><a href="/services">خدمات</a></li>
-                <li className="mainMenuLi"><a href="/about">آشنایی با ما</a></li>
+                <li className="mainMenuLi"><a href="/havale-in">حواله ورود</a></li>
+                <li className="mainMenuLi"><a href="/havale-out">حواله خروج</a></li>
+                <li className="mainMenuLi"><a href="/report">گزارشات</a></li>
             </ul>
         </div>
     )
